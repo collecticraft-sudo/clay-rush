@@ -1,0 +1,827 @@
+{
+ "version": 1,
+ "generator": "tools/build-clay-assets.mjs",
+ "totalBytes": 8094086,
+ "groups": {
+  "core": [
+   "clay_gold_tilt",
+   "clay_rabbit",
+   "clay_std_below",
+   "clay_std_edge",
+   "clay_std_tilt",
+   "fx_dust_burst",
+   "fx_flash_side",
+   "fx_flash_star",
+   "fx_shell_casing",
+   "fx_smoke_puff",
+   "fx_smoke_trail",
+   "house_skeet",
+   "house_tower",
+   "house_trap",
+   "icon_clay",
+   "icon_clock",
+   "icon_shell_empty",
+   "icon_shell_full",
+   "icon_star",
+   "icon_trophy",
+   "icon_wind",
+   "shard_gold_1",
+   "shard_gold_2",
+   "shard_std_1",
+   "shard_std_2",
+   "shard_std_3",
+   "shard_std_4",
+   "shard_std_5",
+   "shard_std_6",
+   "gun_ou",
+   "logo_title"
+  ],
+  "stage:meadow": [
+   "bg_meadow_far",
+   "bg_meadow_near"
+  ],
+  "stage:hills": [
+   "bg_hills_far",
+   "bg_hills_near"
+  ],
+  "stage:alpine": [
+   "bg_alpine_far",
+   "bg_alpine_near"
+  ]
+ },
+ "fonts": [
+  {
+   "id": "display",
+   "family": "ClayDisplay",
+   "file": "fonts/range-display.woff2",
+   "weight": "100 900",
+   "source": "Bebas Neue (Dharma Type), google/fonts ofl/bebasneue",
+   "licenseFile": "fonts/OFL-bebasneue.txt",
+   "format": "woff2",
+   "style": "normal",
+   "license": "SIL-OFL-1.1",
+   "bytes": 10992,
+   "sha256": "779ee24826213222c81c74ae4b0bcfc954c1f30bfb053fdab9971b1e17cd0ae4"
+  },
+  {
+   "id": "ui600",
+   "family": "ClayUI",
+   "file": "fonts/range-ui-600.woff2",
+   "weight": "100 650",
+   "source": "Barlow SemiBold (Jeremy Tribby), google/fonts ofl/barlow",
+   "licenseFile": "fonts/OFL-barlow.txt",
+   "format": "woff2",
+   "style": "normal",
+   "license": "SIL-OFL-1.1",
+   "bytes": 18312,
+   "sha256": "d0610b427f91ec65d708181a818380ad530503f077c60ddf3d797b68c7ccc8ca"
+  },
+  {
+   "id": "ui700",
+   "family": "ClayUI",
+   "file": "fonts/range-ui-700.woff2",
+   "weight": "651 900",
+   "source": "Barlow Bold (Jeremy Tribby), google/fonts ofl/barlow",
+   "licenseFile": "fonts/OFL-barlow.txt",
+   "format": "woff2",
+   "style": "normal",
+   "license": "SIL-OFL-1.1",
+   "bytes": 18184,
+   "sha256": "0aaeb824b4a2c9f14c2964d9ad1312e1acd16de840e7ef4ee5307c5afac24da1"
+  }
+ ],
+ "assets": [
+  {
+   "id": "bg_meadow_far",
+   "file": "backgrounds/bg_meadow_far.jpg",
+   "kind": "layer",
+   "group": "stage:meadow",
+   "width": 2560,
+   "height": 1440,
+   "contentBox": {
+    "x": 0,
+    "y": 0,
+    "w": 2560,
+    "h": 1440
+   },
+   "anchor": {
+    "x": 1280,
+    "y": 720
+   },
+   "bytes": 258074
+  },
+  {
+   "id": "bg_meadow_near",
+   "file": "backgrounds/bg_meadow_near.png",
+   "kind": "layer",
+   "group": "stage:meadow",
+   "width": 1920,
+   "height": 1080,
+   "contentBox": {
+    "x": 0,
+    "y": 659,
+    "w": 1920,
+    "h": 421
+   },
+   "anchor": {
+    "x": 960,
+    "y": 540
+   },
+   "bytes": 1537306
+  },
+  {
+   "id": "bg_hills_far",
+   "file": "backgrounds/bg_hills_far.jpg",
+   "kind": "layer",
+   "group": "stage:hills",
+   "width": 2560,
+   "height": 1440,
+   "contentBox": {
+    "x": 0,
+    "y": 0,
+    "w": 2560,
+    "h": 1440
+   },
+   "anchor": {
+    "x": 1280,
+    "y": 720
+   },
+   "bytes": 335371
+  },
+  {
+   "id": "bg_hills_near",
+   "file": "backgrounds/bg_hills_near.png",
+   "kind": "layer",
+   "group": "stage:hills",
+   "width": 1920,
+   "height": 1080,
+   "contentBox": {
+    "x": 0,
+    "y": 616,
+    "w": 1920,
+    "h": 464
+   },
+   "anchor": {
+    "x": 960,
+    "y": 540
+   },
+   "bytes": 1655725
+  },
+  {
+   "id": "bg_alpine_far",
+   "file": "backgrounds/bg_alpine_far.jpg",
+   "kind": "layer",
+   "group": "stage:alpine",
+   "width": 2560,
+   "height": 1440,
+   "contentBox": {
+    "x": 0,
+    "y": 0,
+    "w": 2560,
+    "h": 1440
+   },
+   "anchor": {
+    "x": 1280,
+    "y": 720
+   },
+   "bytes": 216095
+  },
+  {
+   "id": "bg_alpine_near",
+   "file": "backgrounds/bg_alpine_near.png",
+   "kind": "layer",
+   "group": "stage:alpine",
+   "width": 1920,
+   "height": 1080,
+   "contentBox": {
+    "x": 0,
+    "y": 592,
+    "w": 1920,
+    "h": 488
+   },
+   "anchor": {
+    "x": 960,
+    "y": 540
+   },
+   "bytes": 1311796
+  },
+  {
+   "id": "clay_gold_tilt",
+   "file": "sprites/clay_gold_tilt.png",
+   "kind": "target",
+   "group": "core",
+   "width": 256,
+   "height": 256,
+   "contentBox": {
+    "x": 19,
+    "y": 42,
+    "w": 217,
+    "h": 172
+   },
+   "anchor": {
+    "x": 128,
+    "y": 128
+   },
+   "body": {
+    "cx": 127.5,
+    "cy": 128,
+    "r": 108.5
+   },
+   "bytes": 69186
+  },
+  {
+   "id": "clay_rabbit",
+   "file": "sprites/clay_rabbit.png",
+   "kind": "target",
+   "group": "core",
+   "width": 256,
+   "height": 256,
+   "contentBox": {
+    "x": 71,
+    "y": 12,
+    "w": 113,
+    "h": 232
+   },
+   "anchor": {
+    "x": 128,
+    "y": 128
+   },
+   "body": {
+    "cx": 127.5,
+    "cy": 128,
+    "r": 116
+   },
+   "bytes": 45542
+  },
+  {
+   "id": "clay_std_below",
+   "file": "sprites/clay_std_below.png",
+   "kind": "target",
+   "group": "core",
+   "width": 256,
+   "height": 256,
+   "contentBox": {
+    "x": 17,
+    "y": 53,
+    "w": 223,
+    "h": 149
+   },
+   "anchor": {
+    "x": 128,
+    "y": 128
+   },
+   "body": {
+    "cx": 128.5,
+    "cy": 127.5,
+    "r": 111.5
+   },
+   "bytes": 56906
+  },
+  {
+   "id": "clay_std_edge",
+   "file": "sprites/clay_std_edge.png",
+   "kind": "target",
+   "group": "core",
+   "width": 256,
+   "height": 256,
+   "contentBox": {
+    "x": 89,
+    "y": 16,
+    "w": 76,
+    "h": 224
+   },
+   "anchor": {
+    "x": 128,
+    "y": 128
+   },
+   "body": {
+    "cx": 127,
+    "cy": 128,
+    "r": 112
+   },
+   "bytes": 34385
+  },
+  {
+   "id": "clay_std_tilt",
+   "file": "sprites/clay_std_tilt.png",
+   "kind": "target",
+   "group": "core",
+   "width": 256,
+   "height": 256,
+   "contentBox": {
+    "x": 23,
+    "y": 40,
+    "w": 209,
+    "h": 177
+   },
+   "anchor": {
+    "x": 128,
+    "y": 128
+   },
+   "body": {
+    "cx": 127.5,
+    "cy": 128.5,
+    "r": 104.5
+   },
+   "bytes": 65209
+  },
+  {
+   "id": "fx_dust_burst",
+   "file": "sprites/fx_dust_burst.png",
+   "kind": "fx",
+   "group": "core",
+   "width": 256,
+   "height": 256,
+   "contentBox": {
+    "x": 21,
+    "y": 17,
+    "w": 214,
+    "h": 222
+   },
+   "anchor": {
+    "x": 128,
+    "y": 128
+   },
+   "bytes": 80174
+  },
+  {
+   "id": "fx_flash_side",
+   "file": "sprites/fx_flash_side.png",
+   "kind": "fx",
+   "group": "core",
+   "width": 256,
+   "height": 256,
+   "contentBox": {
+    "x": 20,
+    "y": 20,
+    "w": 218,
+    "h": 216
+   },
+   "anchor": {
+    "x": 128,
+    "y": 128
+   },
+   "bytes": 71419
+  },
+  {
+   "id": "fx_flash_star",
+   "file": "sprites/fx_flash_star.png",
+   "kind": "fx",
+   "group": "core",
+   "width": 256,
+   "height": 256,
+   "contentBox": {
+    "x": 33,
+    "y": 17,
+    "w": 189,
+    "h": 222
+   },
+   "anchor": {
+    "x": 128,
+    "y": 128
+   },
+   "bytes": 74399
+  },
+  {
+   "id": "fx_shell_casing",
+   "file": "sprites/fx_shell_casing.png",
+   "kind": "fx",
+   "group": "core",
+   "width": 256,
+   "height": 256,
+   "contentBox": {
+    "x": 26,
+    "y": 18,
+    "w": 204,
+    "h": 220
+   },
+   "anchor": {
+    "x": 128,
+    "y": 128
+   },
+   "bytes": 65793
+  },
+  {
+   "id": "fx_smoke_puff",
+   "file": "sprites/fx_smoke_puff.png",
+   "kind": "fx",
+   "group": "core",
+   "width": 256,
+   "height": 256,
+   "contentBox": {
+    "x": 18,
+    "y": 19,
+    "w": 220,
+    "h": 218
+   },
+   "anchor": {
+    "x": 128,
+    "y": 128
+   },
+   "bytes": 69755
+  },
+  {
+   "id": "fx_smoke_trail",
+   "file": "sprites/fx_smoke_trail.png",
+   "kind": "fx",
+   "group": "core",
+   "width": 256,
+   "height": 256,
+   "contentBox": {
+    "x": 17,
+    "y": 55,
+    "w": 222,
+    "h": 145
+   },
+   "anchor": {
+    "x": 128,
+    "y": 128
+   },
+   "bytes": 51499
+  },
+  {
+   "id": "house_skeet",
+   "file": "sprites/house_skeet.png",
+   "kind": "house",
+   "group": "core",
+   "width": 512,
+   "height": 512,
+   "contentBox": {
+    "x": 85,
+    "y": 95,
+    "w": 341,
+    "h": 321
+   },
+   "anchor": {
+    "x": 255.5,
+    "y": 416
+   },
+   "bytes": 156485
+  },
+  {
+   "id": "house_tower",
+   "file": "sprites/house_tower.png",
+   "kind": "house",
+   "group": "core",
+   "width": 512,
+   "height": 512,
+   "contentBox": {
+    "x": 89,
+    "y": 106,
+    "w": 332,
+    "h": 300
+   },
+   "anchor": {
+    "x": 255,
+    "y": 406
+   },
+   "bytes": 154358
+  },
+  {
+   "id": "house_trap",
+   "file": "sprites/house_trap.png",
+   "kind": "house",
+   "group": "core",
+   "width": 512,
+   "height": 512,
+   "contentBox": {
+    "x": 20,
+    "y": 184,
+    "w": 471,
+    "h": 144
+   },
+   "anchor": {
+    "x": 255.5,
+    "y": 328
+   },
+   "bytes": 110560
+  },
+  {
+   "id": "icon_clay",
+   "file": "sprites/icon_clay.png",
+   "kind": "icon",
+   "group": "core",
+   "width": 128,
+   "height": 128,
+   "contentBox": {
+    "x": 11,
+    "y": 17,
+    "w": 105,
+    "h": 94
+   },
+   "anchor": {
+    "x": 64,
+    "y": 64
+   },
+   "bytes": 22434
+  },
+  {
+   "id": "icon_clock",
+   "file": "sprites/icon_clock.png",
+   "kind": "icon",
+   "group": "core",
+   "width": 128,
+   "height": 128,
+   "contentBox": {
+    "x": 15,
+    "y": 6,
+    "w": 97,
+    "h": 115
+   },
+   "anchor": {
+    "x": 64,
+    "y": 64
+   },
+   "bytes": 25404
+  },
+  {
+   "id": "icon_shell_empty",
+   "file": "sprites/icon_shell_empty.png",
+   "kind": "icon",
+   "group": "core",
+   "width": 128,
+   "height": 128,
+   "contentBox": {
+    "x": 37,
+    "y": 8,
+    "w": 54,
+    "h": 111
+   },
+   "anchor": {
+    "x": 64,
+    "y": 64
+   },
+   "bytes": 11139
+  },
+  {
+   "id": "icon_shell_full",
+   "file": "sprites/icon_shell_full.png",
+   "kind": "icon",
+   "group": "core",
+   "width": 128,
+   "height": 128,
+   "contentBox": {
+    "x": 37,
+    "y": 8,
+    "w": 54,
+    "h": 112
+   },
+   "anchor": {
+    "x": 64,
+    "y": 64
+   },
+   "bytes": 11650
+  },
+  {
+   "id": "icon_star",
+   "file": "sprites/icon_star.png",
+   "kind": "icon",
+   "group": "core",
+   "width": 128,
+   "height": 128,
+   "contentBox": {
+    "x": 15,
+    "y": 15,
+    "w": 97,
+    "h": 97
+   },
+   "anchor": {
+    "x": 64,
+    "y": 64
+   },
+   "bytes": 18932
+  },
+  {
+   "id": "icon_trophy",
+   "file": "sprites/icon_trophy.png",
+   "kind": "icon",
+   "group": "core",
+   "width": 128,
+   "height": 128,
+   "contentBox": {
+    "x": 12,
+    "y": 7,
+    "w": 103,
+    "h": 114
+   },
+   "anchor": {
+    "x": 64,
+    "y": 64
+   },
+   "bytes": 24680
+  },
+  {
+   "id": "icon_wind",
+   "file": "sprites/icon_wind.png",
+   "kind": "icon",
+   "group": "core",
+   "width": 128,
+   "height": 128,
+   "contentBox": {
+    "x": 9,
+    "y": 11,
+    "w": 110,
+    "h": 106
+   },
+   "anchor": {
+    "x": 64,
+    "y": 64
+   },
+   "bytes": 20197
+  },
+  {
+   "id": "shard_gold_1",
+   "file": "sprites/shard_gold_1.png",
+   "kind": "shard",
+   "group": "core",
+   "width": 128,
+   "height": 128,
+   "contentBox": {
+    "x": 38,
+    "y": 24,
+    "w": 52,
+    "h": 79
+   },
+   "anchor": {
+    "x": 64,
+    "y": 64
+   },
+   "bytes": 10372
+  },
+  {
+   "id": "shard_gold_2",
+   "file": "sprites/shard_gold_2.png",
+   "kind": "shard",
+   "group": "core",
+   "width": 128,
+   "height": 128,
+   "contentBox": {
+    "x": 44,
+    "y": 35,
+    "w": 38,
+    "h": 57
+   },
+   "anchor": {
+    "x": 64,
+    "y": 64
+   },
+   "bytes": 6162
+  },
+  {
+   "id": "shard_std_1",
+   "file": "sprites/shard_std_1.png",
+   "kind": "shard",
+   "group": "core",
+   "width": 128,
+   "height": 128,
+   "contentBox": {
+    "x": 30,
+    "y": 8,
+    "w": 68,
+    "h": 113
+   },
+   "anchor": {
+    "x": 64,
+    "y": 64
+   },
+   "bytes": 16208
+  },
+  {
+   "id": "shard_std_2",
+   "file": "sprites/shard_std_2.png",
+   "kind": "shard",
+   "group": "core",
+   "width": 128,
+   "height": 128,
+   "contentBox": {
+    "x": 34,
+    "y": 20,
+    "w": 58,
+    "h": 88
+   },
+   "anchor": {
+    "x": 64,
+    "y": 64
+   },
+   "bytes": 11941
+  },
+  {
+   "id": "shard_std_3",
+   "file": "sprites/shard_std_3.png",
+   "kind": "shard",
+   "group": "core",
+   "width": 128,
+   "height": 128,
+   "contentBox": {
+    "x": 35,
+    "y": 26,
+    "w": 59,
+    "h": 75
+   },
+   "anchor": {
+    "x": 64,
+    "y": 64
+   },
+   "bytes": 10428
+  },
+  {
+   "id": "shard_std_4",
+   "file": "sprites/shard_std_4.png",
+   "kind": "shard",
+   "group": "core",
+   "width": 128,
+   "height": 128,
+   "contentBox": {
+    "x": 40,
+    "y": 23,
+    "w": 48,
+    "h": 82
+   },
+   "anchor": {
+    "x": 64,
+    "y": 64
+   },
+   "bytes": 9696
+  },
+  {
+   "id": "shard_std_5",
+   "file": "sprites/shard_std_5.png",
+   "kind": "shard",
+   "group": "core",
+   "width": 128,
+   "height": 128,
+   "contentBox": {
+    "x": 42,
+    "y": 25,
+    "w": 45,
+    "h": 76
+   },
+   "anchor": {
+    "x": 64,
+    "y": 64
+   },
+   "bytes": 9163
+  },
+  {
+   "id": "shard_std_6",
+   "file": "sprites/shard_std_6.png",
+   "kind": "shard",
+   "group": "core",
+   "width": 128,
+   "height": 128,
+   "contentBox": {
+    "x": 40,
+    "y": 40,
+    "w": 46,
+    "h": 48
+   },
+   "anchor": {
+    "x": 64,
+    "y": 64
+   },
+   "bytes": 6291
+  },
+  {
+   "id": "gun_ou",
+   "file": "ui/gun_ou.png",
+   "kind": "ui",
+   "group": "core",
+   "width": 689,
+   "height": 800,
+   "contentBox": {
+    "x": 12,
+    "y": 12,
+    "w": 677,
+    "h": 788
+   },
+   "anchor": {
+    "x": 689,
+    "y": 800
+   },
+   "muzzle": {
+    "x": 0.05,
+    "y": 0.045
+   },
+   "bytes": 669235
+  },
+  {
+   "id": "logo_title",
+   "file": "ui/logo_title.png",
+   "kind": "ui",
+   "group": "core",
+   "width": 1175,
+   "height": 614,
+   "contentBox": {
+    "x": 6,
+    "y": 6,
+    "w": 1163,
+    "h": 602
+   },
+   "anchor": {
+    "x": 587.5,
+    "y": 307
+   },
+   "bytes": 790117
+  }
+ ]
+}

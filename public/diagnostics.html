@@ -1,0 +1,266 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Joy-Con Diagnostics - Clay Rush</title>
+<link rel="icon" href="data:,">
+<!--
+  Diagnostics page of Clay Rush (docs/architecture.md 5.10). OWNER: input engineer.
+  A standalone tool: no game code, no Motion import. It lets the owner verify the real Joy-Con 2 in about two minutes
+  (docs/joycon2-protocol.md section 12). Labels are English, technical terms and units are kept as in the protocol document.
+  Everything that depends on the physical controller is UNVERIFIED-ON-HARDWARE until the owner ticks the checklist.
+  URL flags: ?input=native (the default: the native Bluetooth bridge, docs/native-bridge.md), ?input=joycon (Web Bluetooth in Chrome) or ?input=sim
+  (the simulator; also ?simhz, ?simmount, ?simside, ?simmirror=1, ?simgyro=alt, ?simaccelsign=-1, ?simseed). The mode selector below changes it.
+-->
+<style>
+  :root {
+    color-scheme: light dark;
+    --bg: #f6f3ec; --panel: #fffdf8; --ink: #22201c; --muted: #6a655b; --line: #d9d2c3; --accent: #b3261e; --ok: #1f7a3d; --warn: #a86400;
+    --bad: #b3261e; --chip: #ece6d8; --mono: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; --bar: #b3261e; --uoh: #8a4b00; --uoh-bg: #fff0d6;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root { --bg: #1b1a17; --panel: #24221e; --ink: #ece7db; --muted: #a29b8b; --line: #3a372f; --accent: #ff7a6b; --ok: #6fd18f; --warn: #f0b04d;
+            --bad: #ff8a80; --chip: #33302a; --bar: #ff7a6b; --uoh: #f5c26b; --uoh-bg: #3b2f14; }
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--ink); font: 15px/1.45 system-ui, -apple-system, "Segoe UI", sans-serif; }
+  header { padding: 20px 16px 8px; max-width: 1240px; margin: 0 auto; }
+  h1 { margin: 0 0 4px; font-size: 26px; letter-spacing: -0.01em; }
+  h2 { margin: 0 0 10px; font-size: 17px; display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
+  h3 { margin: 14px 0 6px; font-size: 14px; }
+  p { margin: 4px 0 8px; }
+  a { color: var(--accent); }
+  main { max-width: 1240px; margin: 0 auto; padding: 8px 16px 40px; display: grid; gap: 14px; grid-template-columns: repeat(auto-fit, minmax(min(100%, 560px), 1fr)); }
+  .panel { background: var(--panel); border: 1px solid var(--line); border-radius: 10px; padding: 14px 16px; min-width: 0; }
+  .wide { grid-column: 1 / -1; }
+  .muted { color: var(--muted); }
+  .small { font-size: 13px; }
+  .mono, pre, code, td.v { font-family: var(--mono); font-size: 13px; }
+  pre { margin: 6px 0; padding: 8px 10px; background: var(--chip); border-radius: 6px; overflow-x: auto; white-space: pre-wrap; word-break: break-all; }
+  table.kv { border-collapse: collapse; width: 100%; }
+  table.kv td { padding: 2px 8px 2px 0; vertical-align: top; }
+  table.kv td.k { color: var(--muted); white-space: nowrap; width: 1%; }
+  table.kv td.v { word-break: break-word; }
+  .row { display: flex; flex-wrap: wrap; gap: 8px 12px; align-items: center; margin: 8px 0; }
+  label { display: inline-flex; gap: 6px; align-items: center; max-width: 100%; }
+  select { min-width: 0; max-width: 100%; }
+  select, input[type=text] { font: inherit; padding: 4px 6px; border: 1px solid var(--line); border-radius: 6px; background: var(--bg); color: var(--ink); }
+  input[type=text] { min-width: 12ch; width: 100%; }
+  button { font: inherit; padding: 6px 12px; border-radius: 8px; border: 1px solid var(--line); background: var(--chip); color: var(--ink); cursor: pointer; }
+  button.primary { background: var(--accent); border-color: var(--accent); color: #fff; font-weight: 600; }
+  button:disabled { opacity: 0.45; cursor: not-allowed; }
+  .chip { display: inline-block; padding: 1px 10px; border-radius: 999px; background: var(--chip); font-family: var(--mono); font-size: 13px; }
+  .chip.streaming { background: var(--ok); color: #fff; }
+  .chip.error, .chip.lost { background: var(--bad); color: #fff; }
+  .chip.requesting, .chip.connecting, .chip.initializing { background: var(--warn); color: #fff; }
+  .uoh { display: inline-block; padding: 0 8px; border-radius: 4px; font: 600 11px/18px var(--mono); background: var(--uoh-bg); color: var(--uoh); border: 1px solid var(--uoh); letter-spacing: 0.02em; }
+  .uoh.pass { background: transparent; color: var(--ok); border-color: var(--ok); }
+  .uoh.fail { background: transparent; color: var(--bad); border-color: var(--bad); }
+  .ok { color: var(--ok); } .warn { color: var(--warn); } .bad { color: var(--bad); }
+  .hist { display: flex; align-items: flex-end; gap: 2px; height: 70px; margin: 8px 0 2px; border-bottom: 1px solid var(--line); }
+  .hist i { flex: 1 1 0; min-width: 3px; background: var(--bar); border-radius: 2px 2px 0 0; min-height: 1px; }
+  .histlabels { display: flex; justify-content: space-between; color: var(--muted); font: 11px var(--mono); }
+  #simpad { display: none; aspect-ratio: 16 / 9; width: 100%; max-width: 480px; border: 2px dashed var(--line); border-radius: 8px; background: repeating-linear-gradient(0deg, transparent 0 39px, var(--line) 39px 40px), var(--chip);
+            touch-action: none; user-select: none; place-items: center; color: var(--muted); cursor: crosshair; }
+  body.sim #simpad { display: grid; }
+  body.sim [data-only=joycon], body:not(.sim) [data-only=sim] { display: none !important; }
+  body:not(.native) [data-only=native], body:not(.ble) [data-only=ble] { display: none !important; }
+  #log { max-height: 220px; overflow: auto; margin: 0; }
+  ol.steps { padding-left: 0; list-style: none; margin: 0; display: grid; gap: 10px; }
+  ol.steps li { border: 1px solid var(--line); border-radius: 8px; padding: 8px 10px; display: grid; gap: 6px; grid-template-columns: 1fr; }
+  ol.steps .head { display: flex; gap: 8px; flex-wrap: wrap; align-items: baseline; }
+  ol.steps .num { font: 700 13px var(--mono); color: var(--muted); }
+  ol.steps .ctl { display: grid; gap: 8px; grid-template-columns: max-content 1fr; align-items: center; }
+  textarea { width: 100%; min-height: 110px; font: 12px var(--mono); background: var(--bg); color: var(--ink); border: 1px solid var(--line); border-radius: 6px; padding: 8px; }
+  progress { width: 100%; height: 8px; }
+</style>
+</head>
+<body>
+<header>
+  <h1>Joy-Con Diagnostics</h1>
+  <p class="muted">A technical tool of Clay Rush to check the real Joy-Con 2 in about two minutes. Nobody on the team has been able to try the real controller:
+    everything that depends on the hardware stays <span class="uoh">UNVERIFIED-ON-HARDWARE</span> until you confirm it in the checklist at the bottom of the page.</p>
+  <div class="row small">
+    <span>Mode: <span class="chip" id="mode-chip">Native bridge (recommended)</span></span>
+    <label>Change mode
+      <select id="mode-select">
+        <option value="native">Native bridge (recommended)</option>
+        <option value="joycon">Real Joy-Con (Chrome's Bluetooth)</option>
+        <option value="sim">Simulator (no Bluetooth)</option>
+      </select>
+    </label>
+    <a href="index.html" target="_blank" rel="noopener" id="open-game">Open the game</a>
+  </div>
+</header>
+
+<main id="diag-root">
+
+  <!-- 1. Connection -->
+  <section class="panel" id="sec-conn">
+    <h2>Connection <span class="uoh" data-uoh-item="1">UNVERIFIED-ON-HARDWARE</span></h2>
+    <div data-only="joycon">
+      <p class="small muted" data-only="ble">Press “Connect”, hold down the Joy-Con's SYNC button until the lights sweep, then choose the controller in Chrome's list. Never pair it from the macOS Bluetooth settings. One attempt per click.</p>
+      <p class="small muted" data-only="native">The game must have been started with start.command from Terminal (the first time, macOS asks for Bluetooth permission for Terminal). Press “Connect” and right after that hold down the Joy-Con's SYNC button, the small button next to the USB-C port, until the lights sweep: there is no list to choose from. Never pair it from the macOS Bluetooth settings. One attempt per click. Works with any browser.</p>
+      <div class="row">
+        <label>Side <select id="opt-side"><option value="any">any</option><option value="L">left (L)</option><option value="R">right (R)</option></select></label>
+        <label data-only="ble">Filter <select id="opt-filter"><option value="lenient">product id only (recommended)</option><option value="strict">SYNC mode only (stricter)</option><option value="all">all devices</option></select></label>
+        <label data-only="native" title="The bridge prefers a Joy-Con in SYNC mode; if it sees none after 1.5 s, it connects to the strongest one it finds">Joy-Con choice <select id="opt-pairing"><option value="prefer">prefer SYNC mode (default)</option><option value="only">SYNC mode only (stricter)</option></select></label>
+        <label>Mask <select id="opt-mask"><option value="183" selected>0xB7 (recommended)</option><option value="255">0xFF (last resort, may create phantom ZL/ZR buttons)</option><option value="55">0x37 (expert, untested on this channel)</option></select></label>
+        <label title="UOH-5 experiment: without keep-alive the link may drop after about 15 s"><input type="checkbox" id="opt-keepalive" checked> keep-alive 1 Hz (expert)</label>
+      </div>
+      <div class="row">
+        <button class="primary" id="btn-connect">Connect</button>
+        <button id="btn-reconnect" title="Reuses the Joy-Con already chosen, without Chrome's list (with the native bridge: a new attempt with the same choices)">Reconnect</button>
+        <button id="btn-disconnect">Disconnect</button>
+      </div>
+      <p class="small muted">The Joy-Con talks to only one page at a time: before opening the game press “Disconnect” (the link below does it for you), and the game in turn lets go of the controller when you open this page.</p>
+      <p class="small">To make the game use these choices: <a id="game-url" href="/" target="_blank" rel="noopener">/</a></p>
+    </div>
+    <div data-only="sim">
+      <p class="small muted">The simulator generates Joy-Con 2 packets byte by byte and sends them through the same parser as Bluetooth. Move the mouse inside the box to move the virtual Joy-Con.</p>
+      <div id="simpad" aria-label="Simulator area"><span>move the mouse here</span></div>
+      <div class="row small" id="sim-flags"></div>
+    </div>
+    <table class="kv">
+      <tr><td class="k">State</td><td class="v"><span class="chip" id="st-state">idle</span> <span id="st-track" class="muted"></span></td></tr>
+      <tr><td class="k">Error</td><td class="v" id="st-error">none</td></tr>
+      <tr data-only="joycon"><td class="k">Cooldown</td><td class="v" id="st-cooldown">none</td></tr>
+      <tr><td class="k">Side / name</td><td class="v" id="st-side">?</td></tr>
+      <tr data-only="joycon"><td class="k">Mask / watchdog</td><td class="v" id="st-mask">not yet</td></tr>
+      <tr data-only="joycon"><td class="k">Timings</td><td class="v" id="st-timings">not yet</td></tr>
+      <tr data-only="ble"><td class="k">Writes</td><td class="v" id="st-writes">none</td></tr>
+      <tr><td class="k">Streaming for</td><td class="v" id="st-uptime">-</td></tr>
+    </table>
+    <div data-only="native">
+      <h3>Native bridge <span class="uoh">UNVERIFIED-ON-HARDWARE</span></h3>
+      <table class="kv">
+        <tr><td class="k">Bridge</td><td class="v" id="nb-status">not checked yet</td></tr>
+        <tr><td class="k">Phase</td><td class="v" id="nb-phase">idle</td></tr>
+        <tr><td class="k">Helper state</td><td class="v" id="nb-helper">-</td></tr>
+        <tr><td class="k">Scan</td><td class="v" id="nb-scan">-</td></tr>
+        <tr><td class="k">Adverts seen</td><td class="v" id="nb-adverts">none</td></tr>
+        <tr><td class="k">Dropped notifications</td><td class="v" id="nb-dropped">-</td></tr>
+        <tr><td class="k">Last bridge code</td><td class="v" id="nb-code">-</td></tr>
+      </table>
+    </div>
+    <p class="small bad" id="st-warning" hidden></p>
+  </section>
+
+  <!-- 2. Raw values -->
+  <section class="panel" id="sec-live">
+    <h2>Live values <span class="uoh" data-uoh-item="2">UNVERIFIED-ON-HARDWARE</span></h2>
+    <pre id="lv-hex">no packet</pre>
+    <table class="kv">
+      <tr><td class="k">Length</td><td class="v" id="lv-len">-</td></tr>
+      <tr><td class="k">Counter (0x00)</td><td class="v" id="lv-counter">-</td></tr>
+      <tr><td class="k">IMU timestamp</td><td class="v" id="lv-ts">-</td></tr>
+      <tr><td class="k">Raw accel</td><td class="v" id="lv-araw">-</td></tr>
+      <tr><td class="k">Accel g</td><td class="v" id="lv-a">-</td></tr>
+      <tr><td class="k">Raw gyro</td><td class="v" id="lv-graw">-</td></tr>
+      <tr><td class="k">Gyro °/s</td><td class="v" id="lv-g">-</td></tr>
+      <tr><td class="k">Temperature</td><td class="v" id="lv-temp">-</td></tr>
+      <tr><td class="k">Battery</td><td class="v" id="lv-batt">-</td></tr>
+      <tr><td class="k">imuActive</td><td class="v" id="lv-imu">-</td></tr>
+      <tr><td class="k">Byte 0x29 (IMU marker)</td><td class="v" id="lv-marker">-</td></tr>
+      <tr><td class="k">Stick: raw</td><td class="v" id="lv-stick-raw">-</td></tr>
+      <tr><td class="k">Stick: normalised</td><td class="v" id="lv-stick-norm">-</td></tr>
+      <tr><td class="k">Stick: centre estimate</td><td class="v" id="lv-stick-centre">-</td></tr>
+      <tr><td class="k">Stick: flick state</td><td class="v" id="lv-stick-dir">-</td></tr>
+      <tr><td class="k">Buttons pressed</td><td class="v" id="lv-buttons">-</td></tr>
+      <tr><td class="k">Buttons seen</td><td class="v" id="lv-seen">-</td></tr>
+    </table>
+    <p class="small muted">Stick check (about 30 seconds): leave it alone and watch the centre estimate settle, push it up, down, left and right and watch the sign of the normalised values (up must read +y, right +x) and one flick per push, then press A and B and watch the pressed buttons. The half range is an assumption: push it as far as it goes and report the largest raw values you see.</p>
+    <p class="small muted">Scale used by the parser: accelerometer raw / 4096 = g; gyroscope raw x 2000/32768 °/s (scale <b>disputed</b>, see the “full revolution” tool).</p>
+  </section>
+
+  <!-- 3. Rates -->
+  <section class="panel" id="sec-rates">
+    <h2>Rate and timing <span class="uoh" data-uoh-item="2">UNVERIFIED-ON-HARDWARE</span></h2>
+    <table class="kv">
+      <tr><td class="k">Packets/s (1 s)</td><td class="v" id="rt-1s">-</td></tr>
+      <tr><td class="k">Packets/s (10 s)</td><td class="v" id="rt-10s">-</td></tr>
+      <tr><td class="k">Interval between packets</td><td class="v" id="rt-iv">-</td></tr>
+      <tr><td class="k">dt: timestamp vs arrival</td><td class="v" id="rt-dt">-</td></tr>
+      <tr><td class="k">Counter 0x00 vs timestamp</td><td class="v" id="rt-counter">-</td></tr>
+      <tr><td class="k">Dropped / bursts / gaps</td><td class="v" id="rt-loss">-</td></tr>
+    </table>
+    <div class="hist" id="rt-hist" aria-label="Interval histogram"></div>
+    <div class="histlabels"><span>0 ms</span><span id="rt-hist-mid">30 ms</span><span>60+ ms</span></div>
+    <p class="small muted">Answers UOH-4: how many packets per second actually arrive in Chrome on macOS (expected 33-67 Hz).</p>
+  </section>
+
+  <!-- 3b. Keep-alive experiment (UOH-5) -->
+  <section class="panel" id="sec-keepalive" data-only="joycon">
+    <h2>Keep-alive experiment (60 s) <span class="uoh" data-uoh-item="6">UNVERIFIED-ON-HARDWARE</span></h2>
+    <p class="small muted">Connect the Joy-Con with keep-alive OFF and do not touch anything for 60 s. If macOS drops the link after about 15 s without messages from the computer (UOH-5), you will see it here. Press “Start”: the page disconnects, turns keep-alive off and reconnects (hold SYNC when prompted). When it is done, turn keep-alive back on with the checkbox above.</p>
+    <div class="row"><button id="ka-start">Start (keep-alive off)</button><button id="ka-stop" disabled>Stop</button><span id="ka-msg" class="small"></span></div>
+    <table class="kv"><tr><td class="k">Streaming without keep-alive</td><td class="v" id="ka-elapsed">-</td></tr><tr><td class="k">Result</td><td class="v" id="ka-verdict">-</td></tr></table>
+  </section>
+
+  <!-- 4. Tools -->
+  <section class="panel wide" id="sec-tools">
+    <h2>Tools</h2>
+
+    <h3>Full revolution (gyroscope scale) <span class="uoh" data-uoh-item="4">UNVERIFIED-ON-HARDWARE</span></h3>
+    <p class="small muted">Lay the Joy-Con flat on the table, press “Start”, hold it still for 1 s, then rotate it through ONE full revolution at a moderate speed and press “Stop”.
+      About 360° confirms the default scale; about 2930° means 0.0075 °/s per unit (8.14 times smaller).</p>
+    <div class="row">
+      <button id="scale-start">Start</button><button id="scale-stop" disabled>Stop</button><button id="scale-save" disabled>Save scale</button>
+      <span id="scale-msg" class="small"></span>
+    </div>
+    <progress id="scale-progress" value="0" max="1" hidden></progress>
+    <table class="kv"><tr><td class="k">Integrated angle</td><td class="v" id="scale-angle">-</td></tr><tr><td class="k">Verdict</td><td class="v" id="scale-verdict">-</td></tr></table>
+
+    <h3>Gyroscope sign (gravity vs gyroscope) <span class="uoh" data-uoh-item="8">UNVERIFIED-ON-HARDWARE</span></h3>
+    <p class="small muted">Hold the Joy-Con still for 2 s, slowly rotate it by about 70-90° around a horizontal axis (for example tip up) and hold it still again. The test compares the rotation indicated by gravity with the one from the gyroscope.</p>
+    <div class="row"><button id="sign-start">Start</button><span id="sign-msg" class="small"></span></div>
+    <progress id="sign-progress" value="0" max="1" hidden></progress>
+    <table class="kv"><tr><td class="k">Gravity angle</td><td class="v" id="sign-angle">-</td></tr><tr><td class="k">cos between the two rotations</td><td class="v" id="sign-cos">-</td></tr><tr><td class="k">Verdict</td><td class="v" id="sign-verdict">-</td></tr></table>
+
+    <h3>Rest check (3 s) <span class="uoh" data-uoh-item="3">UNVERIFIED-ON-HARDWARE</span></h3>
+    <p class="small muted">Lay the Joy-Con flat on the table with the <b>buttons up</b> and do not touch it: |a| must be 1.00 ± 0.03 g, the gyroscope about 0 ± 3 °/s and the raw Z axis about +4096 (+1 g). The same Z decides the accelerometer sign (see below).</p>
+    <div class="row"><button id="rest-start">Start</button><span id="rest-msg" class="small"></span></div>
+    <progress id="rest-progress" value="0" max="1" hidden></progress>
+    <table class="kv"><tr><td class="k">Mean |a|</td><td class="v" id="rest-a">-</td></tr><tr><td class="k">Mean accel g (x, y, z)</td><td class="v" id="rest-av">-</td></tr><tr><td class="k">Mean gyro ± std. dev.</td><td class="v" id="rest-g">-</td></tr><tr><td class="k">Result</td><td class="v" id="rest-verdict">-</td></tr><tr><td class="k">Z axis (buttons up)</td><td class="v" id="rest-z">-</td></tr></table>
+
+    <h3>Accelerometer sign <span class="uoh" data-uoh-item="3">UNVERIFIED-ON-HARDWARE</span></h3>
+    <p class="small muted">The game assumes that at rest the accelerometer reads +1 g pointing UP. If Z reads -4096 with the buttons up, the sign is opposite: save “-1” and the game will apply it by itself (or open the game with <code>?accelsign=-1</code>). The gyroscope test cannot notice this.</p>
+    <div class="row"><button id="accel-save" disabled>Save the measured sign</button><span id="accel-msg" class="small"></span></div>
+    <p class="small muted">The gyroscope scale and sign you save apply to <b>every</b> later start of the game with the Joy-Con, until you clear them here.</p>
+    <div class="row"><button id="saved-clear">Clear the saved values</button><span id="saved-msg" class="small"></span></div>
+  </section>
+
+  <!-- 5. Latency -->
+  <section class="panel" id="sec-latency">
+    <h2>Latency probe <span class="uoh" data-uoh-item="9">UNVERIFIED-ON-HARDWARE</span></h2>
+    <table class="kv"><tr><td class="k">Age of the newest sample</td><td class="v" id="lat-stats">-</td></tr></table>
+    <p class="small muted">Measures only the software part (the age of the sample at every frame). The radio part and the display are measured with a 240 fps camera.</p>
+  </section>
+
+  <!-- 6. Expert -->
+  <section class="panel" id="sec-expert" data-only="joycon">
+    <h2>Expert <span class="uoh">UNVERIFIED-ON-HARDWARE</span></h2>
+    <p class="small muted">Vibration (UOH-13): command 0x0A with presets 1, 3, 5, 6. Uses only the command characteristic. Never writes anywhere else.</p>
+    <div class="row"><button data-vib="1">Preset 1</button><button data-vib="3">Preset 3</button><button data-vib="5">Preset 5</button><button data-vib="6">Preset 6</button></div>
+  </section>
+
+  <!-- 7. Owner's checklist -->
+  <section class="panel wide" id="sec-checklist">
+    <h2>Owner's verification checklist</h2>
+    <p class="small muted">Follow the steps, then choose “OK” or “KO” for each one. The hint next to it is calculated by the page, but only your choice changes the state from <span class="uoh">UNVERIFIED-ON-HARDWARE</span> to verified.</p>
+    <ol class="steps" id="checklist"></ol>
+    <div class="row"><button class="primary" id="btn-report">Copy report (JSON)</button><span id="report-msg" class="small"></span></div>
+    <textarea id="report-text" readonly placeholder="The JSON report appears here after “Copy report”. You can also copy it by hand."></textarea>
+  </section>
+
+  <!-- 8. Log -->
+  <section class="panel wide" id="sec-log">
+    <h2>Log</h2>
+    <pre id="log">-</pre>
+  </section>
+</main>
+<script type="module" src="js/input/diagnostics-page.js"></script>
+<noscript><p style="padding:16px">This page requires JavaScript.</p></noscript>
+</body>
+</html>

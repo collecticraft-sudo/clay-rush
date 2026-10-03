@@ -1,0 +1,154 @@
+{
+ "comment": "The edit of the presentation video: which part of which REAL gameplay clip plays when (composition seconds). Read by tools/build-edit.mjs (the <video> slots of index.html) and tools/build-audio.mjs (gunshot and clay-crack cues from footage/<events>.events.json). Cuts sit on the beat grid of the music (Vol. 10: 109.96 BPM, beats at about 0.27 + 0.545 n s).",
+ "total": 32.6,
+ "music": {
+  "file": "happy-beats-business-moves-vol-10-by-ende-dot-app.mp3",
+  "from": 0,
+  "fadeIn": 0.25,
+  "fadeOut": 1.6,
+  "gain": 0.5
+ },
+ "segments": [
+  {
+   "id": "pull",
+   "src": "footage/classic.mp4",
+   "events": "classic",
+   "start": 3.55,
+   "dur": 2.73,
+   "mediaStart": 0.3
+  },
+  {
+   "id": "meadow",
+   "src": "footage/classic.mp4",
+   "events": "classic",
+   "start": 6.28,
+   "dur": 1.94,
+   "mediaStart": 4.55
+  },
+  {
+   "id": "hillsin",
+   "src": "footage/classic.mp4",
+   "events": "classic",
+   "start": 8.22,
+   "dur": 3.25,
+   "mediaStart": 18.1
+  },
+  {
+   "id": "double",
+   "src": "footage/classic.mp4",
+   "events": "classic",
+   "start": 11.47,
+   "dur": 2.73,
+   "mediaStart": 24.55
+  },
+  {
+   "id": "alpinein",
+   "src": "footage/classic.mp4",
+   "events": "classic",
+   "start": 14.2,
+   "dur": 2.18,
+   "mediaStart": 41.5
+  },
+  {
+   "id": "rabbit",
+   "src": "footage/classic.mp4",
+   "events": "classic",
+   "start": 16.38,
+   "dur": 2.72,
+   "mediaStart": 46.4
+  },
+  {
+   "id": "easy",
+   "src": "footage/easy.mp4",
+   "events": "easy",
+   "start": 19.1,
+   "dur": 3.27,
+   "mediaStart": 0.4,
+   "layout": "left",
+   "sfxGain": 0.7
+  },
+  {
+   "id": "hard",
+   "src": "footage/hard.mp4",
+   "events": "hard",
+   "start": 19.1,
+   "dur": 3.27,
+   "mediaStart": 0.4,
+   "layout": "right",
+   "sfxGain": 0.7
+  },
+  {
+   "id": "ta",
+   "src": "footage/timeattack.mp4",
+   "events": "timeattack",
+   "start": 22.37,
+   "dur": 2.73,
+   "mediaStart": 0.25
+  },
+  {
+   "id": "results",
+   "src": "footage/classic.mp4",
+   "events": "classic",
+   "start": 25.1,
+   "dur": 3.28,
+   "mediaStart": 65.3
+  }
+ ],
+ "cues": [
+  {
+   "t": 0.05,
+   "sfx": "whoosh",
+   "gain": 0.35
+  },
+  {
+   "t": 1.36,
+   "sfx": "boom",
+   "gain": 0.8
+  },
+  {
+   "t": 1.38,
+   "sfx": "crack1",
+   "gain": 0.9
+  },
+  {
+   "t": 3.33,
+   "sfx": "whoosh",
+   "gain": 0.55
+  },
+  {
+   "t": 18.88,
+   "sfx": "whoosh",
+   "gain": 0.55
+  },
+  {
+   "t": 22.25,
+   "sfx": "swipe",
+   "gain": 0.45
+  },
+  {
+   "t": 24.98,
+   "sfx": "swipe",
+   "gain": 0.45
+  },
+  {
+   "t": 27.12,
+   "sfx": "stamp",
+   "gain": 0.7
+  },
+  {
+   "t": 28.16,
+   "sfx": "whoosh",
+   "gain": 0.55
+  },
+  {
+   "t": 28.79,
+   "sfx": "boom",
+   "gain": 0.6
+  },
+  {
+   "t": 28.81,
+   "sfx": "crack2",
+   "gain": 0.7
+  }
+ ]
+}

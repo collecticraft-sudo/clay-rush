@@ -1,0 +1,71 @@
+<!doctype html>
+<html>
+  <head><meta charset="UTF-8" /></head>
+  <body>
+    <template>
+      <style>
+        @font-face { font-family: "Bebas Neue"; src: url("assets/fonts/BebasNeue-Regular.ttf") format("truetype"); font-weight: 400; }
+        @font-face { font-family: "Barlow"; src: url("assets/fonts/Barlow-Bold.ttf") format("truetype"); font-weight: 700; }
+        #intro { position: absolute; inset: 0; overflow: hidden; background: #1B1F24; }
+        #intro img { display: block; }
+        #intro .layer { position: absolute; will-change: transform; }
+        #intro .abs { position: absolute; left: 0; top: 0; }
+        #intro #in-shade { position: absolute; inset: 0; background: radial-gradient(ellipse 70% 60% at 50% 36%, rgba(27,31,36,0) 0%, rgba(27,31,36,0.18) 60%, rgba(27,31,36,0.45) 100%); }
+        #intro #in-flash { position: absolute; inset: 0; background: #FFF4DC; opacity: 0; }
+        #intro #in-sub { position: absolute; left: 0; width: 1920px; top: 742px; text-align: center; font-family: "Bebas Neue", sans-serif; font-size: 64px; letter-spacing: 0.06em; color: #FFF4DC;
+          text-shadow: 0 4px 0 rgba(27,31,36,0.55), 0 0 30px rgba(27,31,36,0.35); }
+        #intro #in-sub b { font-weight: 400; color: #FFF4DC; }
+        #intro .shard { position: absolute; width: 90px; height: 90px; left: 0; top: 0; }
+      </style>
+      <div id="intro" data-composition-id="intro" data-width="1920" data-height="1080">
+        <div class="layer" data-layout-allow-overflow id="in-far" style="left:-96px; top:-54px; width:2112px; height:1188px;"><img src="assets/bg/bg_hills_far.jpg" width="2112" height="1188" /></div>
+        <div class="layer" data-layout-allow-overflow id="in-near" style="left:-64px; top:-36px; width:2048px; height:1152px;"><img src="assets/bg/bg_hills_near.png" width="2048" height="1152" /></div>
+        <div id="in-shade"></div>
+        <div class="abs" id="in-clay" style="width:120px;height:120px;"><img src="assets/sprites/clay_std_tilt.png" width="120" height="120" /></div>
+        <div class="abs" id="in-logo" style="left:400px; top:120px; width:1120px; height:585px;"><img src="assets/ui/logo_title.png" width="1120" height="585" style="filter: drop-shadow(0 16px 0 rgba(27,31,36,0.28));" /></div>
+        <div id="in-shards" data-layout-allow-overflow></div>
+        <div id="in-sub">Clay pigeon shooting <b>&middot;</b> in your browser</div>
+        <div id="in-flash"></div>
+      </div>
+      <script>
+        (function () {
+          var root = document.getElementById("intro");
+          var K = KF.scene(0, root);
+          var E = KF.E;
+          // drifting backdrop (the menu's Golden Hills art, two parallax layers)
+          K.track("#in-far", [{ t: 0, x: 0, s: 1.0 }, { t: 3.6, x: -28, s: 1.02 }], { ease: E.lin });
+          K.track("#in-near", [{ t: 0, x: 0, s: 1.0 }, { t: 3.6, x: -70, s: 1.045 }], { ease: E.lin });
+          // a clay flies in from the trap house side and is "shot" on the beat (1.37): the logo slams in where it breaks
+          K.track("#in-clay", [
+            { t: 0, x: 260, y: 980, r: -20, s: 0.55, o: 0 },
+            { t: 0.12, x: 300, y: 930, r: -10, s: 0.6, o: 1, ease: "cubic-bezier(0.3,0.6,0.5,1)" },
+            { t: 1.36, x: 1150, y: 300, r: 260, s: 0.95, o: 1, ease: E.lin },
+            { t: 1.37, x: 1150, y: 300, r: 260, s: 0.95, o: 0 }
+          ]);
+          K.track("#in-logo", [
+            { t: 0, s: 1.35, o: 0 }, { t: 1.36, s: 1.35, o: 0, ease: E.lin }, { t: 1.37, s: 1.18, o: 1, ease: E.back }, { t: 1.72, s: 1.0, o: 1, ease: E.soft }, { t: 3.6, s: 1.04, o: 1 }
+          ]);
+          K.track("#in-flash", [{ t: 0, o: 0 }, { t: 1.36, o: 0, ease: E.lin }, { t: 1.37, o: 0.75, ease: E.out }, { t: 1.7, o: 0 }]);
+          // shards of the clay burst out of the break point (seeded positions: fixed list, no randomness)
+          var sh = root.querySelector("#in-shards");
+          var srcs = ["shard_std_1", "shard_std_2", "shard_std_3", "shard_std_4", "shard_std_5"];
+          var dirs = [[-1, -0.8], [0.9, -1.0], [1.3, 0.2], [-1.2, 0.5], [0.3, 1.2], [-0.4, -1.3], [1.1, 0.9], [-0.9, 1.0], [0.6, -0.4], [-1.4, -0.2]];
+          dirs.forEach(function (d, i) {
+            var el = document.createElement("div");
+            el.className = "shard";
+            el.innerHTML = '<img src="assets/sprites/' + srcs[i % 5] + '.png" width="90" height="90" />';
+            sh.appendChild(el);
+            var dist = 380 + (i * 53) % 220, x0 = 1150 - 45, y0 = 300 - 45;
+            K.track(el, [
+              { t: 0, x: x0, y: y0, r: 0, s: 0.4, o: 0 }, { t: 1.36, x: x0, y: y0, r: 0, s: 0.4, o: 0, ease: E.lin },
+              { t: 1.37, x: x0, y: y0, r: 0, s: 0.9, o: 1, ease: "cubic-bezier(0.1,0.7,0.3,1)" },
+              { t: 2.2, x: x0 + d[0] * dist, y: y0 + d[1] * dist + 160, r: (i % 2 ? 1 : -1) * (200 + i * 40), s: 0.7, o: 1, ease: E.in },
+              { t: 2.5, x: x0 + d[0] * dist * 1.1, y: y0 + d[1] * dist + 300, r: (i % 2 ? 1 : -1) * (260 + i * 40), s: 0.6, o: 0 }
+            ]);
+          });
+          K.track("#in-sub", [{ t: 0, y: 40, o: 0 }, { t: 1.9, y: 40, o: 0, ease: E.out }, { t: 2.4, y: 0, o: 1 }]);
+        })();
+      </script>
+    </template>
+  </body>
+</html>

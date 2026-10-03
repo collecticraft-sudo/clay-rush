@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sound Lab</title>
+<link rel="icon" href="data:,">
+<style>
+  :root { --bg:#0d1017; --panel:#161b26; --ink:#e9eef7; --mute:#8a96ab; --good:#59d18a; --ok:#7fd1f0; --bad:#ff5a4a; --line:#262e3f; }
+  * { box-sizing: border-box; }
+  body { margin:0; background:var(--bg); color:var(--ink); font:14px/1.4 system-ui, -apple-system, "Segoe UI", sans-serif; }
+  header.top { position:sticky; top:0; z-index:2; display:flex; flex-wrap:wrap; gap:12px 16px; align-items:center; padding:12px 16px; background:rgba(13,16,23,.94); border-bottom:1px solid var(--line); }
+  header.top h1 { font-size:18px; margin:0 8px 0 0; }
+  #status { color:var(--mute); flex:1 1 320px; }
+  button { background:#232c3f; color:var(--ink); border:1px solid #33405a; border-radius:8px; padding:6px 12px; font:inherit; cursor:pointer; }
+  button:hover { background:#2d3956; }
+  input[type=search] { background:#0f131c; color:var(--ink); border:1px solid var(--line); border-radius:8px; padding:6px 10px; font:inherit; min-width:160px; }
+  label { color:var(--mute); display:inline-flex; gap:8px; align-items:center; }
+  #grid { display:grid; grid-template-columns:repeat(auto-fill, minmax(360px, 1fr)); gap:12px; padding:16px; }
+  .card { background:var(--panel); border:1px solid var(--line); border-radius:12px; padding:10px; display:flex; flex-direction:column; gap:6px; min-width:0; }
+  .card.mix { border-color:#5a4a1e; }
+  .card header { display:flex; justify-content:space-between; align-items:center; gap:8px; }
+  .card h2 { font-size:14px; margin:0; font-weight:600; overflow-wrap:anywhere; }
+  .btns { display:flex; gap:6px; flex:none; }
+  .btns button { padding:3px 9px; font-size:12px; }
+  canvas { width:100%; height:auto; border-radius:6px; display:block; background:#10131a; }
+  .stats { display:flex; flex-wrap:wrap; gap:4px; min-height:22px; }
+  .badge { font-size:11px; padding:2px 7px; border-radius:99px; background:#1f2636; color:var(--mute); }
+  .badge.good { color:#0d1017; background:var(--good); }
+  .badge.ok { color:var(--ink); }
+  .badge.bad { color:#0d1017; background:var(--bad); }
+</style>
+</head>
+<body>
+<header class="top">
+  <h1>Sound Lab</h1>
+  <button id="all">Render all (offline)</button>
+  <input id="filter" type="search" placeholder="filter, e.g. shot">
+  <label>Live volume <input id="vol" type="range" min="0" max="100" value="70"></label>
+  <span id="status">Click Render all for waveforms, spectrograms and peak levels; click Play live to hear a sound through the real engine.</span>
+</header>
+<main id="grid"></main>
+<script type="module" src="/lab/lab.js"></script>
+</body>
+</html>

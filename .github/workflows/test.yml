@@ -1,0 +1,17 @@
+name: test
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  unit:
+    # macOS: the project is developed and tested there, and some suites (the native bridge helper, start.command) need clang and macOS tools.
+    # They skip themselves elsewhere. No Chrome is needed for test:unit.
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: npm run test:unit

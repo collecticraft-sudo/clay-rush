@@ -1,0 +1,15 @@
+* text=auto eol=lf
+*.command text eol=lf
+*.sh text eol=lf
+*.m text eol=lf
+*.plist text eol=lf
+*.csv text eol=lf
+*.jsonl text eol=lf
+# public/assets/manifest.json stores the sha256 of every shipped file: never let git change their bytes
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.mp4 binary
+*.woff2 binary
+*.ttf binary

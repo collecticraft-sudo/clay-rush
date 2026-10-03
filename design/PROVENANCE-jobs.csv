@@ -1,0 +1,14 @@
+file,higgsfield_job_id,model,quality,resolution,credits
+bg_meadow_far_v1.png,26f9c53b-f682-47af-bb73-c19639e35d3d,gpt_image_2_5,low,2k,0.5
+bg_hills_far_v1.png,83e41c03-9168-44bc-8a14-5efb6afb4c2c,gpt_image_2_5,low,2k,0.5
+bg_alpine_far_v1.png,43188203-3651-4d63-b3b2-6fb80e396b64,gpt_image_2_5,low,2k,0.5
+bg_meadow_near_v1.png,7ca434f4-5491-462f-9733-9d1df24ede9b,gpt_image_2_5,low,2k,0.5
+bg_hills_near_v1.png,eae2c549-a7e8-44e6-a1c6-a5756fda8407,gpt_image_2_5,low,2k,0.5
+bg_alpine_near_v1.png,91c66891-cad8-4318-8e93-3c843bd8edd4,gpt_image_2_5,low,2k,0.5
+sheet_clays_v1.png,66a2eed3-28c5-4c5e-b9cd-2b9882fc446a,gpt_image_2_5,medium,1k,0.5
+sheet_shards_v1.png,1883bb41-ca9f-4a1d-8315-a9fcd2a4bdc9,gpt_image_2_5,low,1k,0.25
+gun_v1.png,a26c1000-b2c3-4026-ad86-2c6ef8bcc9f4,gpt_image_2_5,medium,1k,0.5
+sheet_fx_v1.png,f74bc201-1e21-4a4d-a8ab-a81193e143bb,gpt_image_2_5,low,1k,0.25
+sheet_houses_v1.png,f8156287-39ca-49b2-a172-e3cadf4635db,gpt_image_2_5,low,1k,0.25
+logo_v1.png,87885762-bff5-4b31-a1af-13cb42e6c04e,gpt_image_2_5,medium,1k,0.5
+sheet_icons_v1.png,d953fc33-e506-4eb3-a541-36c370a52f63,gpt_image_2_5,low,1k,0.25

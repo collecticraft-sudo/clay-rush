@@ -1,0 +1,17 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Clay Rush render preview</title>
+<style>
+  html, body { margin: 0; padding: 0; background: #000; overflow: hidden; }
+  canvas { display: block; width: 1920px; height: 1080px; }
+</style>
+</head>
+<body>
+<!-- Render preview (dev tool, never shipped): one scripted scene of the world renderer and the HUD per URL.
+     ?scene=play|idle|ready|card|killcam|timeattack|zen &stage=meadow|hills|alpine &assets=0 &reduce=1 &dpr=1 -->
+<canvas id="c" width="1920" height="1080"></canvas>
+<script type="module" src="./preview.js"></script>
+</body>
+</html>

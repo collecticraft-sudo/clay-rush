@@ -1,0 +1,56 @@
+<!doctype html>
+<html>
+  <head><meta charset="UTF-8" /></head>
+  <body>
+    <template>
+      <style>
+        @font-face { font-family: "Bebas Neue"; src: url("assets/fonts/BebasNeue-Regular.ttf") format("truetype"); font-weight: 400; }
+        @font-face { font-family: "Barlow"; src: url("assets/fonts/Barlow-SemiBold.ttf") format("truetype"); font-weight: 600; }
+        @font-face { font-family: "Barlow"; src: url("assets/fonts/Barlow-Bold.ttf") format("truetype"); font-weight: 700; }
+        #endcard { position: absolute; inset: 0; overflow: hidden; background: #1B1F24; font-family: "Barlow", sans-serif; color: #FFF4DC; }
+        #endcard img { display: block; }
+        #endcard .layer { position: absolute; will-change: transform; }
+        #endcard .abs { position: absolute; left: 0; top: 0; }
+        #endcard #e-shade { position: absolute; inset: 0; background: linear-gradient(180deg, rgba(27,31,36,0.15) 0%, rgba(27,31,36,0.35) 45%, rgba(27,31,36,0.82) 100%); }
+        #endcard #e-tag { position: absolute; left: 0; width: 1920px; top: 566px; text-align: center; font-family: "Bebas Neue", sans-serif; font-size: 76px; letter-spacing: 0.03em; line-height: 1;
+          text-shadow: 0 5px 0 rgba(27,31,36,0.6); }
+        #endcard #e-tag em { font-style: normal; color: #F2C230; }
+        #endcard #e-url { position: absolute; left: 0; width: 1920px; top: 670px; text-align: center; }
+        #endcard #e-url b { display: inline-block; font-weight: 700; font-size: 40px; padding: 10px 30px 10px; background: #FFF4DC; color: #1B1F24; border-radius: 14px; box-shadow: 0 8px 0 #F26B1D; }
+        #endcard #e-facts { position: absolute; left: 0; width: 1920px; top: 780px; display: flex; justify-content: center; gap: 22px; }
+        #endcard #e-facts span { display: inline-block; font-family: "Bebas Neue", sans-serif; font-size: 40px; line-height: 1; padding: 10px 22px 6px; border: 3px solid rgba(255,244,220,0.8); border-radius: 12px;
+          background: rgba(27,31,36,0.55); white-space: nowrap; }
+        #endcard #e-facts span b { font-weight: 400; color: #F26B1D; }
+        #endcard #e-credit { position: absolute; left: 40px; right: 40px; bottom: 22px; text-align: center; font-weight: 600; font-size: 28px; line-height: 1.3; color: rgba(255,244,220,0.92); white-space: nowrap; }
+        #endcard #e-credit b { font-weight: 700; color: #F2C230; }
+      </style>
+      <div id="endcard" data-composition-id="endcard" data-width="1920" data-height="1080">
+        <div class="layer" data-layout-allow-overflow id="e-far" style="left:-96px; top:-54px; width:2112px; height:1188px;"><img src="assets/bg/bg_alpine_far.jpg" width="2112" height="1188" /></div>
+        <div class="layer" data-layout-allow-overflow id="e-near" style="left:-64px; top:-36px; width:2048px; height:1152px;"><img src="assets/bg/bg_alpine_near.png" width="2048" height="1152" /></div>
+        <div id="e-shade"></div>
+        <div class="abs" id="e-logo" style="left:560px; top:60px; width:800px; height:418px;"><img src="assets/ui/logo_title.png" width="800" height="418" style="filter: drop-shadow(0 12px 0 rgba(27,31,36,0.35));" /></div>
+        <div id="e-tag">A <em>Joy-Con 2</em> clay shooting game for the browser</div>
+        <div id="e-url"><b>github.com/collecticraft-sudo/clay-rush</b></div>
+        <div id="e-facts"><span><b>3</b> stages</span><span><b>36</b> clays per Classic round</span><span>Time Attack &middot; Zen</span><span>Mouse and simulator too</span></div>
+        <div id="e-credit"><div><b>Music:</b> &ldquo;Happy Beats / Business Moves Vol. 10&rdquo; by Sascha Ende (ende.app), CC BY 4.0 &nbsp;&middot;&nbsp; <b>SFX:</b> Kenney, CC0</div><div>Gameplay: the real game, played by the built-in bot</div></div>
+      </div>
+      <script>
+        (function () {
+          var T = 28.38;
+          var K = KF.scene(T, document.getElementById("endcard"));
+          var E = KF.E;
+          K.track("#e-far", [{ t: 0, x: 0, s: 1.0 }, { t: 4.22, x: -24, s: 1.02 }], { ease: E.lin });
+          K.track("#e-near", [{ t: 0, x: 0, s: 1.0 }, { t: 4.22, x: -64, s: 1.04 }], { ease: E.lin });
+          K.track("#e-logo", [{ t: 0, s: 1.3, o: 0 }, { t: 0.40, s: 1.3, o: 0, ease: E.lin }, { t: 0.42, s: 1.12, o: 1, ease: E.back }, { t: 0.75, s: 1.0, o: 1, ease: E.soft }, { t: 4.22, s: 1.03, o: 1 }]);
+          K.track("#e-tag", [{ t: 0, y: 40, o: 0 }, { t: 0.75, y: 40, o: 0, ease: E.out }, { t: 1.2, y: 0, o: 1 }]);
+          K.track("#e-url", [{ t: 0, y: 30, s: 0.92, o: 0 }, { t: 1.05, y: 30, s: 0.92, o: 0, ease: E.back }, { t: 1.45, y: 0, s: 1, o: 1 }]);
+          K.$$("#e-facts span").forEach(function (el, i) {
+            var s = 1.4 + i * 0.12;
+            K.track(el, [{ t: 0, y: 30, o: 0 }, { t: s, y: 30, o: 0, ease: E.out }, { t: s + 0.35, y: 0, o: 1 }]);
+          });
+          K.track("#e-credit", [{ t: 0, o: 0 }, { t: 1.2, o: 0, ease: E.out }, { t: 1.7, o: 1 }]);
+        })();
+      </script>
+    </template>
+  </body>
+</html>

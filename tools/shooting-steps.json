@@ -1,0 +1,50 @@
+[
+  {
+    "name": "rest_table",
+    "seconds": 12,
+    "text": "Lay the Joy-Con FLAT on the table, hands off. Do not touch it. (This measures the gyro bias.)"
+  },
+  {
+    "name": "hold_still",
+    "seconds": 12,
+    "text": "Pick it up and hold it like a pistol: top end (the ZR end) pointing at the screen centre, finger resting on ZR without pressing. Hold as still as you can."
+  },
+  {
+    "name": "aim_5_points",
+    "seconds": 16,
+    "text": "Aim at five points and hold each for about 2 s: screen CENTRE, TOP-LEFT corner, TOP-RIGHT corner, BOTTOM-RIGHT corner, BOTTOM-LEFT corner. Move between them in about 1 s. Do not press any button."
+  },
+  {
+    "name": "track_slow",
+    "seconds": 22,
+    "text": "Pick a spot well LEFT of the screen and a spot well RIGHT of it. Sweep the aim slowly and steadily from one to the other and back, about 5 s each way, as if following a slow bird. Do not press any button."
+  },
+  {
+    "name": "snap_shots",
+    "seconds": 45,
+    "analyze": false,
+    "text": "SNAP SHOTS, 20 of them, about one every 2 s: start with the Joy-Con pointing at the floor in front of you, raise it, aim at any point of the screen and pull ZR as soon as you are on it, then lower it again."
+  },
+  {
+    "name": "trigger_still",
+    "seconds": 45,
+    "analyze": true,
+    "text": "TRIGGER PULLS WHILE HOLDING STILL, 20 of them: aim at the screen centre and keep aiming there. Every 2 s pull and release ZR, trying NOT to move the aim. Do not lower the Joy-Con between pulls. (This measures the trigger jerk.)"
+  },
+  {
+    "name": "shot_sequence",
+    "seconds": 60,
+    "analyze": false,
+    "text": "PLAY: 50 shots, about one per second. Aim at a different point of the screen each time and pull ZR. Every few shots fire a quick DOUBLE: two pulls about 0.2 s apart, the second at a nearby point."
+  },
+  {
+    "name": "arm_lower_raise",
+    "seconds": 20,
+    "text": "Lower the arm and let the Joy-Con hang by your side for about 3 s, then raise it and point at the screen centre for about 3 s. Repeat three times. Do not press any button."
+  },
+  {
+    "name": "return_still",
+    "seconds": 12,
+    "text": "Point at the screen centre exactly as at the start (pistol grip) and hold still. Do not press any button."
+  }
+]

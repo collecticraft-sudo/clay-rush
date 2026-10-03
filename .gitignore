@@ -1,0 +1,28 @@
+# dependencies and build output
+node_modules/
+bridge/build/
+# generated QA evidence (test-support and the e2e tools rewrite it)
+docs/qa/
+# presentation video: footage, renders and the finished MP4 (the MP4 is a release asset, not in git)
+video/footage/
+video/renders/
+video/**/footage/
+video/**/renders/
+*.mp4
+*.mov
+# recordings other than the fixture used by the tests (record-imu.mjs writes new ones here)
+recordings/*
+!recordings/imu-2026-09-30T18-42-24.jsonl
+# local files
+.DS_Store
+*.log
+.env
+.env.*
+.claude/
+
+# generated screenshots of the render checks (test-support/render/shoot.mjs rewrites them)
+test-support/render/screens/
+# raw Higgsfield outputs (large; the cut sprites in design/sprites and the shipped files in public/assets are kept)
+design/raw/
+# the private hand-off notes of the previous project (published in the 3D Fruit Dojo repository)
+playbook/

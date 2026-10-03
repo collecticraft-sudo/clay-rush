@@ -1,0 +1,121 @@
+<!doctype html>
+<html>
+  <head><meta charset="UTF-8" /></head>
+  <body>
+    <template>
+      <style>
+        @font-face { font-family: "Bebas Neue"; src: url("assets/fonts/BebasNeue-Regular.ttf") format("truetype"); font-weight: 400; }
+        @font-face { font-family: "Barlow"; src: url("assets/fonts/Barlow-SemiBold.ttf") format("truetype"); font-weight: 600; }
+        @font-face { font-family: "Barlow"; src: url("assets/fonts/Barlow-Bold.ttf") format("truetype"); font-weight: 700; }
+        #titles { position: absolute; inset: 0; overflow: hidden; pointer-events: none; font-family: "Barlow", sans-serif; color: #FFF4DC; }
+        #titles .abs { position: absolute; left: 0; top: 0; }
+        /* "Call Pull!" card (right third: the first clays break on the left) */
+        #titles #t-pull { position: absolute; left: 1110px; top: 262px; width: 770px; height: 440px; }
+        #titles #t-pull .panel { position: absolute; inset: 0; background: rgba(27,31,36,0.86); border-radius: 18px; border-left: 14px solid #F26B1D; box-shadow: 0 14px 0 rgba(27,31,36,0.25); }
+        #titles #t-l1 { position: absolute; left: 52px; top: 26px; font-family: "Bebas Neue", sans-serif; font-size: 150px; line-height: 1; letter-spacing: 0.01em; white-space: nowrap; }
+        #titles #t-l1 em { font-style: normal; color: #F26B1D; }
+        #titles #t-l2 { position: absolute; left: 54px; top: 182px; font-family: "Bebas Neue", sans-serif; font-size: 92px; line-height: 1; color: #F2C230; white-space: nowrap; }
+        #titles #t-joy { position: absolute; left: 50px; top: 306px; width: 700px; height: 110px; }
+        #titles #t-joy svg { position: absolute; left: 0; top: 0; }
+        #titles #t-joy span { position: absolute; left: 236px; top: 6px; font-weight: 700; font-size: 32px; line-height: 1.1; white-space: nowrap; }
+        #titles #t-joy span small { display: block; font-weight: 600; font-size: 28px; letter-spacing: 0.03em; color: rgba(255,244,220,0.72); margin-top: 8px; }
+        /* feature chips (upper left, in the sky under the score panel) */
+        #titles .chip { position: absolute; left: 46px; top: 182px; height: 78px; padding: 0 26px 0 22px; display: flex; align-items: center; gap: 16px;
+          background: rgba(27,31,36,0.88); border-radius: 14px; border-left: 10px solid #F26B1D; white-space: nowrap; opacity: 0; }
+        #titles .chip b { font-family: "Bebas Neue", sans-serif; font-weight: 400; font-size: 50px; letter-spacing: 0.02em; line-height: 1; padding-top: 4px; }
+        #titles .chip i { font-style: normal; font-weight: 600; font-size: 30px; color: rgba(255,244,220,0.85); }
+        #titles .chip.gold { border-left-color: #F2C230; }
+        /* "real gameplay" badge (upper right, under the wind panel) */
+        #titles #t-real { position: absolute; right: 44px; top: 176px; height: 56px; padding: 0 22px; display: flex; align-items: center; gap: 12px; background: rgba(27,31,36,0.86);
+          border-radius: 12px; font-weight: 600; font-size: 26px; white-space: nowrap; opacity: 0; }
+        #titles #t-real b { font-weight: 700; color: #F2C230; letter-spacing: 0.04em; }
+        #titles #t-real2 { position: absolute; right: 44px; top: 980px; height: 56px; padding: 0 22px; display: flex; align-items: center; gap: 12px; background: rgba(27,31,36,0.86);
+          border-radius: 12px; font-weight: 600; font-size: 26px; white-space: nowrap; opacity: 0; }
+        #titles #t-real2 b { font-weight: 700; color: #F2C230; letter-spacing: 0.04em; }
+        #titles #t-real3 { position: absolute; left: 690px; width: 540px; top: 374px; height: 56px; display: flex; justify-content: center; align-items: center; gap: 10px; background: rgba(27,31,36,0.86);
+          border-radius: 12px; font-weight: 600; font-size: 26px; white-space: nowrap; opacity: 0; }
+        #titles #t-real3 b { font-weight: 700; color: #F2C230; letter-spacing: 0.04em; }
+        #titles #t-real3 .dot, #titles #t-real2 .dot, #titles #t-real .dot { width: 12px; height: 12px; border-radius: 6px; background: #F26B1D; }
+        /* Easy vs Hard split */
+        #titles #t-split { position: absolute; inset: 0; opacity: 0; }
+        #titles #t-div { position: absolute; left: 954px; top: 0; width: 12px; height: 1080px; background: #1B1F24; border-left: 3px solid #F26B1D; border-right: 3px solid #F26B1D; }
+        #titles .lab { position: absolute; top: 176px; width: 960px; text-align: center; }
+        #titles .lab b { display: inline-block; font-family: "Bebas Neue", sans-serif; font-weight: 400; font-size: 96px; line-height: 1; padding: 10px 34px 2px; background: rgba(27,31,36,0.88); border-radius: 14px; }
+        #titles .lab i { display: table; margin: 12px auto 0; padding: 6px 18px 7px; font-style: normal; font-weight: 700; font-size: 38px; line-height: 1.1; background: rgba(27,31,36,0.82); border-radius: 10px; }
+        #titles #t-easy b { color: #F2C230; }
+        #titles #t-hard b { color: #F26B1D; }
+        #titles #t-same { position: absolute; left: 0; width: 1920px; top: 966px; text-align: center; }
+        #titles #t-same b { display: inline-block; font-family: "Bebas Neue", sans-serif; font-weight: 400; font-size: 64px; line-height: 1; padding: 12px 34px 4px; background: #F26B1D; color: #FFF4DC; border-radius: 14px;
+          box-shadow: 0 8px 0 rgba(27,31,36,0.45); }
+      </style>
+      <div id="titles" data-composition-id="titles" data-width="1920" data-height="1080">
+        <div id="t-pull">
+          <div class="panel"></div>
+          <div id="t-l1">Call &ldquo;<em>Pull!</em>&rdquo;</div>
+          <div id="t-l2">Aim like a pistol.</div>
+          <div id="t-joy">
+            <!-- ILLUSTRATION of a Joy-Con 2 (R) held like a pistol: a flat drawing, not a photo or footage -->
+            <svg width="220" height="96" viewBox="0 0 220 96">
+              <g transform="translate(6,10)">
+                <rect x="0" y="14" width="196" height="62" rx="31" fill="#2E343C" stroke="#FFF4DC" stroke-width="3" />
+                <rect x="150" y="14" width="46" height="62" rx="0" fill="#2E343C" />
+                <path d="M150 14 H196 V76 H150" fill="none" stroke="#FFF4DC" stroke-width="3" />
+                <rect x="196" y="18" width="10" height="54" rx="3" fill="#F26B1D" />
+                <circle cx="118" cy="45" r="15" fill="#1B1F24" stroke="#FFF4DC" stroke-width="2.5" />
+                <circle cx="118" cy="45" r="7" fill="#3B424B" />
+                <circle cx="52" cy="31" r="6" fill="#FFF4DC" /><circle cx="52" cy="59" r="6" fill="#FFF4DC" />
+                <circle cx="38" cy="45" r="6" fill="#FFF4DC" /><circle cx="66" cy="45" r="6" fill="#FFF4DC" />
+                <path d="M150 6 L176 6 Q186 6 186 14 L150 14 Z" fill="#F2C230" />
+              </g>
+            </svg>
+            <span>ZR is the trigger. Turn to aim.<small>ILLUSTRATION &middot; JOY-CON 2 (R)</small></span>
+          </div>
+        </div>
+
+        <div class="chip" id="c-meadow"><b>Three stages</b><i>Morning Meadow to Alpine Dusk</i></div>
+        <div class="chip" id="c-double"><b>Doubles</b><i>slow-motion kill cam</i></div>
+        <div class="chip" id="c-rabbit"><b>Rabbits</b><i>clays that roll along the ground</i></div>
+        <div class="chip" id="c-ta"><b>Time Attack</b><i>every break adds time</i></div>
+        <div class="chip gold" id="c-res" style="top:968px;"><b>36 clays a round</b><i>ranked S to D</i></div>
+
+        <div id="t-split">
+          <div id="t-div"></div>
+          <div class="lab" id="t-easy" style="left:0;"><b>Easy</b><i>the same throw, closer</i></div>
+          <div class="lab" id="t-hard" style="left:960px;"><b>Hard</b><i>farther: lead the clay</i></div>
+          <div id="t-same"><b>The difficulty is distance</b></div>
+        </div>
+
+        <div id="t-real"><span class="dot"></span><b>REAL GAMEPLAY</b> played by the built-in bot</div>
+        <div id="t-real3"><span class="dot"></span><b>REAL GAMEPLAY</b> played by the built-in bot</div>
+        <div id="t-real2" class="real2"><span class="dot"></span><b>REAL GAMEPLAY</b> played by the built-in bot</div>
+      </div>
+      <script>
+        (function () {
+          var T0 = 3.55; // this overlay starts at 3.55 s on the composition clock; L() turns composition seconds into local ones
+          var K = KF.scene(T0, document.getElementById("titles"));
+          var E = KF.E;
+          var L = function (t) { return t - T0; };
+          // "Call Pull!" card: 3.55 - 6.28
+          K.track("#t-pull", [{ t: 0, x: 120, o: 0 }, { t: L(3.67), x: 120, o: 0, ease: E.out }, { t: L(4.05), x: 0, o: 1 }, { t: L(6.06), x: 0, o: 1, ease: E.in }, { t: L(6.26), x: 60, o: 0 }]);
+          K.track("#t-l1", [{ t: 0, y: 30, o: 0 }, { t: L(3.80), y: 30, o: 0, ease: E.back }, { t: L(4.15), y: 0, o: 1 }]);
+          K.track("#t-l2", [{ t: 0, y: 30, o: 0 }, { t: L(4.64), y: 30, o: 0, ease: E.back }, { t: L(4.99), y: 0, o: 1 }]);
+          K.track("#t-joy", [{ t: 0, x: -30, o: 0 }, { t: L(4.95), x: -30, o: 0, ease: E.out }, { t: L(5.35), x: 0, o: 1 }]);
+          // feature chips [id, in, out] (composition seconds)
+          [["#c-meadow", 6.40, 8.14], ["#c-double", 11.59, 14.12], ["#c-rabbit", 16.50, 19.02], ["#c-ta", 22.49, 25.02], ["#c-res", 25.66, 28.30]].forEach(function (c) {
+            K.track(c[0], [{ t: 0, x: -50, o: 0 }, { t: L(c[1]), x: -50, o: 0, ease: E.out }, { t: L(c[1]) + 0.32, x: 0, o: 1 }, { t: L(c[2]) - 0.14, x: 0, o: 1, ease: E.in }, { t: L(c[2]), x: -20, o: 0 }]);
+          });
+          // Easy vs Hard: 19.10 - 22.37
+          K.track("#t-split", [{ t: 0, o: 0 }, { t: L(19.10), o: 0, ease: E.lin }, { t: L(19.12), o: 1 }, { t: L(22.33), o: 1, ease: E.lin }, { t: L(22.37), o: 0 }]);
+          K.track("#t-easy", [{ t: 0, y: -30, o: 0 }, { t: L(19.26), y: -30, o: 0, ease: E.back }, { t: L(19.56), y: 0, o: 1 }]);
+          K.track("#t-hard", [{ t: 0, y: -30, o: 0 }, { t: L(19.41), y: -30, o: 0, ease: E.back }, { t: L(19.71), y: 0, o: 1 }]);
+          K.track("#t-same", [{ t: 0, y: 40, s: 0.9, o: 0 }, { t: L(20.35), y: 40, s: 0.9, o: 0, ease: E.back }, { t: L(20.70), y: 0, s: 1, o: 1 }]);
+          // the "real gameplay" badge is on screen over every gameplay shot: upper right in play, centred over the split, lower right on the results
+          K.track("#t-real", [{ t: 0, o: 0 }, { t: L(3.85), o: 0, ease: E.out }, { t: L(4.25), o: 1 }, { t: L(19.0), o: 1, ease: E.lin }, { t: L(19.10), o: 0 }, { t: L(22.37), o: 0, ease: E.lin },
+            { t: L(22.45), o: 1 }, { t: L(25.0), o: 1, ease: E.lin }, { t: L(25.10), o: 0 }]);
+          K.track("#t-real3", [{ t: 0, o: 0 }, { t: L(19.14), o: 0, ease: E.lin }, { t: L(19.34), o: 1 }, { t: L(22.29), o: 1, ease: E.lin }, { t: L(22.37), o: 0 }]);
+          K.track("#t-real2", [{ t: 0, o: 0 }, { t: L(25.16), o: 0, ease: E.lin }, { t: L(25.36), o: 1 }, { t: L(28.26), o: 1, ease: E.lin }, { t: L(28.38), o: 0 }]);
+        })();
+      </script>
+    </template>
+  </body>
+</html>

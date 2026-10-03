@@ -1,0 +1,41 @@
+id,file,bytes,source,higgsfield_job_id,model,quality,resolution
+bg_meadow_far,backgrounds/bg_meadow_far.jpg,258074,bg_meadow_far_v1.png,26f9c53b-f682-47af-bb73-c19639e35d3d,gpt_image_2_5,low,2k
+bg_meadow_near,backgrounds/bg_meadow_near.png,1537306,bg_meadow_near_v1.png,7ca434f4-5491-462f-9733-9d1df24ede9b,gpt_image_2_5,low,2k
+bg_hills_far,backgrounds/bg_hills_far.jpg,335371,bg_hills_far_v1.png,83e41c03-9168-44bc-8a14-5efb6afb4c2c,gpt_image_2_5,low,2k
+bg_hills_near,backgrounds/bg_hills_near.png,1655725,bg_hills_near_v1.png,eae2c549-a7e8-44e6-a1c6-a5756fda8407,gpt_image_2_5,low,2k
+bg_alpine_far,backgrounds/bg_alpine_far.jpg,216095,bg_alpine_far_v1.png,43188203-3651-4d63-b3b2-6fb80e396b64,gpt_image_2_5,low,2k
+bg_alpine_near,backgrounds/bg_alpine_near.png,1311796,bg_alpine_near_v1.png,91c66891-cad8-4318-8e93-3c843bd8edd4,gpt_image_2_5,low,2k
+clay_gold_tilt,sprites/clay_gold_tilt.png,69186,sheet_clays_v1.png,66a2eed3-28c5-4c5e-b9cd-2b9882fc446a,gpt_image_2_5,medium,1k
+clay_rabbit,sprites/clay_rabbit.png,45542,sheet_clays_v1.png,66a2eed3-28c5-4c5e-b9cd-2b9882fc446a,gpt_image_2_5,medium,1k
+clay_std_below,sprites/clay_std_below.png,56906,sheet_clays_v1.png,66a2eed3-28c5-4c5e-b9cd-2b9882fc446a,gpt_image_2_5,medium,1k
+clay_std_edge,sprites/clay_std_edge.png,34385,sheet_clays_v1.png,66a2eed3-28c5-4c5e-b9cd-2b9882fc446a,gpt_image_2_5,medium,1k
+clay_std_tilt,sprites/clay_std_tilt.png,65209,sheet_clays_v1.png,66a2eed3-28c5-4c5e-b9cd-2b9882fc446a,gpt_image_2_5,medium,1k
+fx_dust_burst,sprites/fx_dust_burst.png,80174,sheet_fx_v1.png,f74bc201-1e21-4a4d-a8ab-a81193e143bb,gpt_image_2_5,low,1k
+fx_flash_side,sprites/fx_flash_side.png,71419,sheet_fx_v1.png,f74bc201-1e21-4a4d-a8ab-a81193e143bb,gpt_image_2_5,low,1k
+fx_flash_star,sprites/fx_flash_star.png,74399,sheet_fx_v1.png,f74bc201-1e21-4a4d-a8ab-a81193e143bb,gpt_image_2_5,low,1k
+fx_shell_casing,sprites/fx_shell_casing.png,65793,sheet_fx_v1.png,f74bc201-1e21-4a4d-a8ab-a81193e143bb,gpt_image_2_5,low,1k
+fx_smoke_puff,sprites/fx_smoke_puff.png,69755,sheet_fx_v1.png,f74bc201-1e21-4a4d-a8ab-a81193e143bb,gpt_image_2_5,low,1k
+fx_smoke_trail,sprites/fx_smoke_trail.png,51499,sheet_fx_v1.png,f74bc201-1e21-4a4d-a8ab-a81193e143bb,gpt_image_2_5,low,1k
+house_skeet,sprites/house_skeet.png,156485,sheet_houses_v1.png,f8156287-39ca-49b2-a172-e3cadf4635db,gpt_image_2_5,low,1k
+house_tower,sprites/house_tower.png,154358,sheet_houses_v1.png,f8156287-39ca-49b2-a172-e3cadf4635db,gpt_image_2_5,low,1k
+house_trap,sprites/house_trap.png,110560,sheet_houses_v1.png,f8156287-39ca-49b2-a172-e3cadf4635db,gpt_image_2_5,low,1k
+icon_clay,sprites/icon_clay.png,22434,sheet_icons_v1.png,d953fc33-e506-4eb3-a541-36c370a52f63,gpt_image_2_5,low,1k
+icon_clock,sprites/icon_clock.png,25404,sheet_icons_v1.png,d953fc33-e506-4eb3-a541-36c370a52f63,gpt_image_2_5,low,1k
+icon_shell_empty,sprites/icon_shell_empty.png,11139,sheet_icons_v1.png,d953fc33-e506-4eb3-a541-36c370a52f63,gpt_image_2_5,low,1k
+icon_shell_full,sprites/icon_shell_full.png,11650,sheet_icons_v1.png,d953fc33-e506-4eb3-a541-36c370a52f63,gpt_image_2_5,low,1k
+icon_star,sprites/icon_star.png,18932,sheet_icons_v1.png,d953fc33-e506-4eb3-a541-36c370a52f63,gpt_image_2_5,low,1k
+icon_trophy,sprites/icon_trophy.png,24680,sheet_icons_v1.png,d953fc33-e506-4eb3-a541-36c370a52f63,gpt_image_2_5,low,1k
+icon_wind,sprites/icon_wind.png,20197,sheet_icons_v1.png,d953fc33-e506-4eb3-a541-36c370a52f63,gpt_image_2_5,low,1k
+shard_gold_1,sprites/shard_gold_1.png,10372,sheet_shards_v1.png,1883bb41-ca9f-4a1d-8315-a9fcd2a4bdc9,gpt_image_2_5,low,1k
+shard_gold_2,sprites/shard_gold_2.png,6162,sheet_shards_v1.png,1883bb41-ca9f-4a1d-8315-a9fcd2a4bdc9,gpt_image_2_5,low,1k
+shard_std_1,sprites/shard_std_1.png,16208,sheet_shards_v1.png,1883bb41-ca9f-4a1d-8315-a9fcd2a4bdc9,gpt_image_2_5,low,1k
+shard_std_2,sprites/shard_std_2.png,11941,sheet_shards_v1.png,1883bb41-ca9f-4a1d-8315-a9fcd2a4bdc9,gpt_image_2_5,low,1k
+shard_std_3,sprites/shard_std_3.png,10428,sheet_shards_v1.png,1883bb41-ca9f-4a1d-8315-a9fcd2a4bdc9,gpt_image_2_5,low,1k
+shard_std_4,sprites/shard_std_4.png,9696,sheet_shards_v1.png,1883bb41-ca9f-4a1d-8315-a9fcd2a4bdc9,gpt_image_2_5,low,1k
+shard_std_5,sprites/shard_std_5.png,9163,sheet_shards_v1.png,1883bb41-ca9f-4a1d-8315-a9fcd2a4bdc9,gpt_image_2_5,low,1k
+shard_std_6,sprites/shard_std_6.png,6291,sheet_shards_v1.png,1883bb41-ca9f-4a1d-8315-a9fcd2a4bdc9,gpt_image_2_5,low,1k
+gun_ou,ui/gun_ou.png,669235,gun_v1.png,a26c1000-b2c3-4026-ad86-2c6ef8bcc9f4,gpt_image_2_5,medium,1k
+logo_title,ui/logo_title.png,790117,logo_v1.png,87885762-bff5-4b31-a1af-13cb42e6c04e,gpt_image_2_5,medium,1k
+font_display,fonts/range-display.woff2,10992,"Bebas Neue (Dharma Type), google/fonts ofl/bebasneue",,,,
+font_ui600,fonts/range-ui-600.woff2,18312,"Barlow SemiBold (Jeremy Tribby), google/fonts ofl/barlow",,,,
+font_ui700,fonts/range-ui-700.woff2,18184,"Barlow Bold (Jeremy Tribby), google/fonts ofl/barlow",,,,

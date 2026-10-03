@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+  <key>CFBundleIdentifier</key>
+  <string>local.joyconninja.bridge</string>
+  <key>CFBundleName</key>
+  <string>joycon-bridge</string>
+  <key>CFBundleVersion</key>
+  <string>1</string>
+  <key>NSBluetoothAlwaysUsageDescription</key>
+  <string>Clay Rush talks to your Joy-Con 2 over Bluetooth to read its motion sensor. It never reads other Bluetooth devices.</string>
+</dict>
+</plist>

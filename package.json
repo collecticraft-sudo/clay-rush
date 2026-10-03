@@ -1,0 +1,19 @@
+{
+  "name": "clay-shooter",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Clay Rush: a clay pigeon shooting web game played with a Nintendo Switch 2 Joy-Con 2 as the gun. Runs offline in the browser (HTML5 Canvas 2D, no runtime dependencies). Code, UI and docs are in English.",
+  "type": "module",
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "start": "node server.js",
+    "test": "node --test --test-timeout=120000 --test-concurrency=5 \"test/**/*.test.js\"",
+    "test:unit": "node --test --test-timeout=120000 --test-concurrency=3 \"test/{shared,input,motion,game,render,audio,ui,architecture,server,app,bridge,assets}/**/*.test.js\"",
+    "test:e2e": "node --test --test-timeout=120000 --test-concurrency=3 \"test/e2e/**/*.test.js\"",
+    "build:bridge": "bash bridge/build.sh",
+    "build:assets": "node tools/build-clay-assets.mjs"
+  },
+  "license": "SEE LICENSE IN LICENSE"
+}
